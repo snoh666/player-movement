@@ -6,39 +6,44 @@ canvas.width = window.innerWidth;
 canvas.height = window.innerHeight - 50;
 
 const floorHeight = Math.floor(window.innerHeight * 0.8);
-const gravityValue = 5;
-const speedValue = 5;
-let animationFrame;
+let gravityValue = 5;
+const speedValue = 7.5;
+let animationFrame = [];
 
 let playerPosX = canvas.width / 2;
 let playerPosY = canvas.height / 2;
 
-//Create floor
+//Draw a floor
 
 ctx.beginPath();
-ctx.fillRect(0, Math.floor(window.innerHeight * 0.8),window.innerWidth, 20);
+ctx.fillRect(0, Math.floor(window.innerHeight * 0.8),window.innerWidth, 200);
 ctx.stroke();
 
 //Create Player Draw function
 const player = () => {
-  animationFrame = requestAnimationFrame(player);
+  animationFrame[0] = requestAnimationFrame(player);
   ctx.clearRect(0, 0, canvas.width, floorHeight);
   ctx.beginPath();
   ctx.strokeRect(playerPosX, playerPosY, 25, 100);
   ctx.stroke();
-  gravityFunction();
 };
 
 const gravityFunction = () => {
+  animationFrame[1] = requestAnimationFrame(gravityFunction);
   if(playerPosY + 100 < floorHeight) {
     playerPosY += gravityValue;
   }
 };
+
 const playerMovement = e => {
-  if(e.key === 'd') {
-    playerPosX += speedValue;
-  } else if(e.key === 'a') {
-    playerPosX -= speedValue;
+  if (e.key === 'd') {
+    if(playerPosX + speedValue + 25 < canvas.width) {
+      playerPosX += speedValue;
+    }
+  } else if (e.key === 'a') {
+    if(playerPosX - speedValue > 0) {
+      playerPosX -= speedValue;
+    }
   }
 };
 
@@ -48,13 +53,15 @@ document.addEventListener('keydown', playerMovement);
 let start = false;
 window.addEventListener('click', () => {
   if(start) {
-    cancelAnimationFrame(animationFrame);
+    cancelAnimationFrame(animationFrame[0]);
+    cancelAnimationFrame(animationFrame[1]);
     start = false;
     ctx.clearRect(0, 0, canvas.width, floorHeight);
     ctx.font = '50px ZCOOL KuaiLe';
     ctx.fillText('Stopped', (canvas.width / 2) - 100, canvas.height / 2, 500);
   } else if(!start){
     player();
+    gravityFunction();
     start = true;
   }
 });
