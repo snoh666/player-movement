@@ -30,7 +30,7 @@ const player = () => {
 
 const gravityFunction = () => {
   animationFrame[1] = requestAnimationFrame(gravityFunction);
-  if(playerPosY + 100 < floorHeight) {
+  if(playerPosY + 101 < floorHeight) {
     playerPosY += gravityValue;
   }
 };
