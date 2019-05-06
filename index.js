@@ -36,11 +36,11 @@ const gravityFunction = () => {
 };
 
 const playerMovement = e => {
-  if (e.key === 'd') {
+  if (e.key === 'd' || e.key === 'ArrowRight') {
     if(playerPosX + speedValue + 25 < canvas.width) {
       playerPosX += speedValue;
     }
-  } else if (e.key === 'a') {
+  } else if (e.key === 'a' || e.key === 'ArrowLeft') {
     if(playerPosX - speedValue > 0) {
       playerPosX -= speedValue;
     }
