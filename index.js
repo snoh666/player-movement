@@ -57,6 +57,10 @@ document.addEventListener('keydown', playerMovement);
 
 //Handle start and pause of game
 let start = false;
+if(!start){
+  ctx.font = '50px ZCOOL KuaiLe';
+  ctx.fillText('Click to start', (canvas.width / 2) - 200, canvas.height / 2, 500);
+}
 window.addEventListener('click', () => {
   if(start) {
     cancelAnimationFrame(animationFrame[0]);
@@ -64,7 +68,7 @@ window.addEventListener('click', () => {
     start = false;
     ctx.clearRect(0, 0, canvas.width, floorHeight);
     ctx.font = '50px ZCOOL KuaiLe';
-    ctx.fillText('Stopped', (canvas.width / 2) - 100, canvas.height / 2, 500);
+    ctx.fillText('Paused', (canvas.width / 2) - 100, canvas.height / 2, 500);
   } else if(!start){
     player();
     gravityFunction();
