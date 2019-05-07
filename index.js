@@ -1,6 +1,8 @@
 const canvas = document.querySelector('canvas');
 
 const ctx = canvas.getContext('2d');
+let scoreBox = document.getElementById('score');
+let score = 0;
 
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight - 50;
@@ -39,10 +41,14 @@ const playerMovement = e => {
   if (e.key === 'd' || e.key === 'ArrowRight') {
     if(playerPosX + speedValue + 25 < canvas.width) {
       playerPosX += speedValue;
+      score += speedValue;
+      scoreBox.innerHTML = Math.floor(score);
     }
   } else if (e.key === 'a' || e.key === 'ArrowLeft') {
     if(playerPosX - speedValue > 0) {
       playerPosX -= speedValue;
+      score += speedValue;
+      scoreBox.innerHTML = Math.floor(score);
     }
   }
 };
