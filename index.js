@@ -69,9 +69,11 @@ window.addEventListener('click', () => {
     ctx.clearRect(0, 0, canvas.width, floorHeight);
     ctx.font = '50px ZCOOL KuaiLe';
     ctx.fillText('Paused', (canvas.width / 2) - 100, canvas.height / 2, 500);
+    document.removeEventListener('keydown', playerMovement);
   } else if(!start){
     player();
     gravityFunction();
     start = true;
+    document.addEventListener('keydown', playerMovement);
   }
 });
